@@ -10,8 +10,29 @@
   gap: 5px;
   padding: 5px;
   padding-top: 20vh;
+  color: white;
 }
 
+.homebox {
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.homebox:hover {
+  transform: scale(1.1);
+  box-shadow: 2px 2px 12px black;
+  z-index: 10
+}
+.homebox:hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.4), transparent 40%);
+  pointer-events: none;
+  border-radius: inherit;
+}
 
 .container > div {
   background-color: rgba(255, 255, 255, 0.8);
@@ -19,12 +40,10 @@
 }
 .container > div.m2af {
   grid-area: m2af;
-  background-color: rgba(0, 179, 21, 0.8);
-  text-align: center;
   margin: 0;
   padding: 0;
-  max-width: 20vw;
-  max-height: 20vh;
+  width: 20vw;
+  height: 21vh;
   overflow: hidden;
 }
 .container > div.m2af img{
@@ -34,47 +53,62 @@
 }
 .container > div.m2af:hover {
   transform: scale(1.1);
-  box-shadow: 2px 2px 2px 2px;
+  box-shadow: 2px 2px 12px black;
 }
 .container > div.pins {
   grid-area: pins;
-  background-color: rgba(0, 179, 21, 0.8);
+  background-color: #008b01;
 }
 .container > div.pins:hover {
   transform: scale(1.1);
-  box-shadow: 2px 2px 2px 2px;
+  box-shadow: 2px 2px 12px black;
 }
 .container > div.recent {
   grid-area: recent;
-  background-color: rgba(0, 179, 21, 0.8);
+  background-color: #008b01;
 }
 .container > div.recent:hover {
   transform: scale(1.1);
-  box-shadow: 2px 2px 2px 2px;
+  box-shadow: 2px 2px 12px black;
 }
 .container > div.games {
   grid-area: games;
-  background-color: rgba(0, 179, 21, 0.8);
+  background-color: #008b01;
 }
 .container > div.games:hover {
   transform: scale(1.1);
-  box-shadow: 2px 2px 2px 2px;
+  box-shadow: 2px 2px 12px black;
 }
 
 .container > div.apps {
   grid-area: apps;
-  background-color: rgba(0, 179, 21, 0.8);
+  background-color: #008b01;
 }
 .container > div.apps:hover {
   transform: scale(1.1);
-  box-shadow: 2px 2px 2px 2px;
+  box-shadow: 2px 2px 12px black;
 }
 
 .container > div.helps {
   grid-area: helps;
-  background-color: rgba(0, 179, 21, 0.8);
+  background-color: #008b01;
 }
 .container > div.helps:hover {
   transform: scale(1.1);
-  box-shadow: 2px 2px 2px 2px;
+  box-shadow: 2px 2px 12px black;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    background: linear-gradient(
+    to top,
+    #6e6e6e 0%,
+    #c9c9c9 25%,
+    #a1a1a1 50%,
+    /*#6e6e6e 75%,*/
+    #4a4a4a 100%
+  );
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
