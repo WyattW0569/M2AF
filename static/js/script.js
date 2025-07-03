@@ -1,23 +1,30 @@
-function test() {
-  document.getElementById("test").innerHTML = "Paragraph changed.";
+function switchPage(sourceDivId, targetDivId) {
+    const sourceDiv = document.getElementById(sourceDivId);
+    const targetDiv = document.getElementById(targetDivId);
+    targetDiv.innerHTML = sourceDiv.innerHTML;
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    switchPage('home','page');
+});
+
 const audioElements = {};
-const soundStates = {};
+let currentPlayingSound = null;
 
 document.addEventListener('DOMContentLoaded', function() {
-    const sounds = ['boxHover', 'select'];
-    
+    const sounds = ['boxHover', 'select', 'back'];
+
     sounds.forEach(soundId => {
         const audio = document.createElement('audio');
         audio.src = `static/audio/${soundId}.mp3`;
         audio.preload = 'auto';
         audio.load();
         audioElements[soundId] = audio;
-        soundStates[soundId] = false;
-        
+
         audio.addEventListener('ended', function() {
-            soundStates[soundId] = false;
+            if (currentPlayingSound === soundId) {
+                currentPlayingSound = null;
+            }
             audio.currentTime = 0;
         });
     });
@@ -25,27 +32,33 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function PlaySound(soundId) {
     try {
-        if (soundStates[soundId]) {
-            console.log(`Sound ${soundId} is already playing`);
-            return;
-        }
-        
         const audio = audioElements[soundId];
         if (!audio) {
             console.error(`Sound ${soundId} not found`);
             return;
         }
-        
-        soundStates[soundId] = true;
-        audio.currentTime = 0;
+
+        // If another sound is playing, stop it
+        if (currentPlayingSound && currentPlayingSound !== soundId) {
+            StopSound(currentPlayingSound);
+        }
+
+        // Restart the sound if it's already playing
+        if (currentPlayingSound === soundId) {
+            audio.pause();
+            audio.currentTime = 0;
+        }
+
+        currentPlayingSound = soundId;
+
         audio.play().catch(e => {
             console.error(`Playback failed: ${e}`);
-            soundStates[soundId] = false;
+            currentPlayingSound = null;
         });
-        
+
     } catch (e) {
         console.error(`Error playing sound ${soundId}:`, e);
-        soundStates[soundId] = false;
+        currentPlayingSound = null;
     }
 }
 
@@ -54,7 +67,9 @@ function StopSound(soundId) {
     if (audio) {
         audio.pause();
         audio.currentTime = 0;
-        soundStates[soundId] = false;
+        if (currentPlayingSound === soundId) {
+            currentPlayingSound = null;
+        }
     }
 }
 

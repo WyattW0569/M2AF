@@ -13,7 +13,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <div>
+    <div id="page"></div>
+
+    <div id="home" style="visibility: hidden;">
         <div class="container">
             <div id="m2af" class="m2af"
             onmouseover="PlaySound('boxHover')" 
@@ -21,17 +23,17 @@
             onclick="PlaySound('select'), NewTab('https:\/\/www.youtube.com/@Message2AllFriends')">
                 <img src="{{  url_for('static', filename='images/m2af.jpg')  }}"/>
             </div>
-            <div class="pins"S
+            <div class="pins"
             onmouseover="PlaySound('boxHover')" 
             onmouseout="StopSound('boxHover')"
-            onclick="PlaySound('select')">
+            onclick="PlaySound('select'),switchPage('pins','page')">
                 <h2>My Pins</h2>
             </div>
             <div class="recent"
             onmouseover="PlaySound('boxHover')" 
             onmouseout="StopSound('boxHover')"
             onclick="PlaySound('select')">
-            <h2>Recent</h2>
+                <h2>Recent</h2>
             </div>
             <div class="games"
             onmouseover="PlaySound('boxHover')" 
@@ -52,6 +54,10 @@
                 <h2>Need Help?</h2>
             </div>
         </div>
+    </div>
+
+    <div id="pins" style="visibility: hidden;" class="container">
+        <button onclick="PlaySound('back'),switchPage('home','page')">TEST</button>
     </div>
 </body>
 </html>
